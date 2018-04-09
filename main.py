@@ -13,8 +13,9 @@ class MainFrame(urwid.WidgetPlaceholder):
             SubMenu('Main menu',
                     text_main_menu,
                     self,
-                    True,
-                    self._load_menu(menu_items)))
+                    top_level=True,
+                    contents=self._load_menu(menu_items)
+                    ))
 
     def _load_menu(self, obj, checkbox=False):
         lst = []
@@ -29,8 +30,10 @@ class MainFrame(urwid.WidgetPlaceholder):
                 return SubMenu(obj["name"],
                                obj["text"],
                                self,
-                               False,
-                               self._load_menu(obj["items"], checkbox)).button
+                               top_level=False,
+                               contents=self._load_menu(obj["items"], checkbox),
+                               chkbox_group=checkbox,
+                               script=getattr(obj, "script", "")).button
         for item in obj:
             lst.append(self._load_menu(item, checkbox))
         return lst
@@ -39,10 +42,10 @@ class MainFrame(urwid.WidgetPlaceholder):
         self.original_widget = urwid.Overlay(urwid.LineBox(box),
             self.original_widget,
                  align='center',
-                 width=('relative', 60),
+                 width=('relative', 20),
                  valign='middle',
-                 height=('relative', 60),
-                 min_width=20, min_height=9)
+                 height=('relative', 20),
+                 min_width=60, min_height=20)
         self.box_level += 1
 
     def keypress(self, size, key):
