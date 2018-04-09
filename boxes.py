@@ -38,6 +38,7 @@ class SubMenu(Box):
 
         self.actions = []
         self.parameters = []
+        self.n = 0
 
         if chkbox_group:
             self.actions.append(MenuButton('Select all...', self.select_all, contents))
@@ -58,7 +59,8 @@ class SubMenu(Box):
 
     # TODO: finish the method
     def select_all(self, button, choices):
-        [i.set_state(True) for i in choices if not i.state]
+        [i.set_state(True) if self.n % 2 == 0 else i.set_state(False) for i in choices]
+        self.n += 1
 
 
 class ActionBox(Box):
