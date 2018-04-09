@@ -36,7 +36,7 @@ menu_items:
 
 - name: Startup Provisioning
   script: 'sample script'
-  text:
+  text: "You are about to run startup provisioning tool."
   items:
 
 - name: Update Provisioning
