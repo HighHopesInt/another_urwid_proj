@@ -8,14 +8,14 @@ class MenuButton(urwid.Button):
         if callback:
             urwid.connect_signal(self, 'click', callback, param)
 
-        self._w = urwid.AttrMap(urwid.SelectableIcon(
-            [u'  \N{BULLET} ', caption], 100), None, 'reversed')
+        # TODO: use curses to hide cursor
+        self._w = urwid.AttrMap(urwid.SelectableIcon([
+            u'  \N{BULLET} ', caption
+        ], 100), None, 'reversed')
 
 
 class ScriptButton(MenuButton):
-    def __init__(self, caption='',
-                 script='',
-                 parameters=None,
+    def __init__(self, caption='', script='', parameters=None,
                  confirmation=False):
         super(ScriptButton, self).__init__(caption)
 

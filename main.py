@@ -4,6 +4,8 @@
 import urwid
 from frame import MainFrame
 
+# TODO: wrap everything into the main function
+
 
 PALETTE = [
     ('reversed', 'standout', ''),

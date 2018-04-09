@@ -9,8 +9,10 @@ class MenuBtnGroup(urwid.WidgetWrap):
 
 
 class Box(urwid.WidgetWrap):
+    # TODO: rework params
     def __init__(self, title, text, frame, contents=None):
-        self.body=[urwid.Text(title), urwid.Divider()]
+        self.body = [urwid.Text(title), urwid.Divider()]
+
         if text:
             self.body.append(urwid.Text(text))
 
@@ -31,7 +33,7 @@ class SubMenu(Box):
     def __init__(self, title, text, frame,
                  top_level=False,
                  contents=None,
-                 chkbox_group=False,
+                 chkbox_group=False,  # TODO: do not use shorts
                  script=''):
 
         self.actions = []
@@ -54,6 +56,7 @@ class SubMenu(Box):
 
         super().__init__(title, text, frame, body)
 
+    # TODO: finish the method
     def select_all(self, button, choices):
         [i.set_state(True) for i in choices if not i.state]
 
