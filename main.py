@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import urwid
-from get_menu_items import menu_items, text_main_menu
+from get_menu_items import menu_items, text_main_menu, exit_key
 from buttons import MenuButton, CheckBoxButton, ScriptButton
 from boxes import SubMenu
 
@@ -8,6 +8,7 @@ from boxes import SubMenu
 class MainFrame(urwid.WidgetPlaceholder):
     def __init__(self):
         super().__init__(urwid.SolidFill(u'\N{MEDIUM SHADE}'))
+
         self.box_level = 0
         self.open_box(
             SubMenu('Main menu',
@@ -49,11 +50,10 @@ class MainFrame(urwid.WidgetPlaceholder):
         self.box_level += 1
 
     def keypress(self, size, key):
-        if key == 'esc' and self.box_level > 1:
-            self.original_widget = self.original_widget[0]
-            self.box_level -= 1
-        else:
-            return super().keypress(size, key)
+        if key == exit_key:
+            self.exit_confirmation()
+
+        return super().keypress(size, key)
 
     def item_chosen(self, button, param):
         print('item chosen')
@@ -62,6 +62,23 @@ class MainFrame(urwid.WidgetPlaceholder):
         if self.box_level > 1:
             self.original_widget = self.original_widget[0]
             self.box_level -= 1
+
+    def exit_confirmation(self):
+        response = urwid.Text(['Do you really want to leave?'])
+
+        def really_exit(button):
+            return self.exit_program()
+
+        apply = MenuButton('OK', really_exit)
+        back_to_menu = MenuButton('Back', self.back)
+        box = urwid.Filler(urwid.Pile([response,
+                                       urwid.Divider(),
+                                       apply,
+                                       back_to_menu]))
+        self.open_box(box)
+
+    def exit_program(self):
+        raise urwid.ExitMainLoop()
 
 
 palette = [

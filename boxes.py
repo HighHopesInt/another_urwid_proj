@@ -56,9 +56,6 @@ class SubMenu(Box):
         [i.set_state(True) for i in choices if not i.state]
 
 
-
-
-
 class InfoBox(Box):
     def __init__(self, title, text, frame, contents=None):
         super(InfoBox, self).__init__(title, text, frame, contents)

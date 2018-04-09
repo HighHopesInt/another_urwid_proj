@@ -7,6 +7,7 @@ class MenuButton(urwid.Button):
         super(MenuButton, self).__init__(caption)
         if callback:
             urwid.connect_signal(self, 'click', callback, param)
+
         self._w = urwid.AttrMap(urwid.SelectableIcon(
             [u'  \N{BULLET} ', caption], 100), None, 'reversed')
 
@@ -16,6 +17,7 @@ class ScriptButton(MenuButton):
                  script='',
                  parameters=None):
         super(ScriptButton, self).__init__(caption)
+
         self.script = script
         self.parameters = parameters
         if script:
