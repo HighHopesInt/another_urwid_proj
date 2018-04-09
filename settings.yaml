@@ -1,0 +1,81 @@
+# Here you can set the exit key from the program.
+exit_key: q
+
+text_main_menu: example text main menu
+
+# Here you can edit menu items and submenu items.
+menu_items:
+- name: 'Test SSH Connection (check ssh to hosts)'
+  script: 'echo'
+  text: 'sample text'
+  checkbox: y
+  items:
+  - name: 0.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+- name: Backup (backup all devices in /tmp/)
+  script:
+  text: 'sample text 2'
+  items:
+  - name: 0.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+- name: Startup Provisioning
+  script: 'sample script'
+  text:
+  items:
+
+- name: Update Provisioning
+  script:
+  text:
+  items:
+
+- name: Troubleshooting
+  script:
+  text:
+  items:
+
+- name: Verifications
+  script:
+  text:
+  items:
+
+- name: Host Files
+  script:
+  text:
+  items:
+
+- name: Read Me
+  script:
+  text:
+  items:
+
+- name: Login Device
+  script:
+  text:
+  items:
+
+- name: Exit
+  script:
+  text:
+  items:
+
+- name: License
+  script:
+  text:
+  items:
+
