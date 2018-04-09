@@ -55,7 +55,7 @@ class MainFrame(urwid.WidgetPlaceholder):
     def item_chosen(self, button, param):
         print('item chosen')
 
-    def back(self):
+    def back(self, button):
         if self.box_level > 1:
             self.original_widget = self.original_widget[0]
             self.box_level -= 1

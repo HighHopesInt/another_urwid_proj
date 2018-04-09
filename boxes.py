@@ -21,8 +21,7 @@ class MenuBtnGroup(urwid.WidgetWrap):
         #     button_group.append(
         #         urwid.AttrMap(button, 'bg', focus_map='reversed'))
 
-
-        button_group.append(urwid.Button('Back', frame.back))
+        button_group.append(MenuButton('Back', frame.back))
 
         # if apply_btn:
         #     button_group.append(buttons.apply_button(self))
@@ -48,14 +47,15 @@ class Box(urwid.WidgetWrap):
 
 class SubMenu(Box):
     def __init__(self, title, text, frame, top_level=False, contents=None):
+        if not top_level and contents:
+            contents.append(MenuBtnGroup(frame,
+                                          choices_checkbox=False,
+                                          sel_all_btn=False,
+                                          apply_btn=False
+                                          ))
         super(SubMenu, self).__init__(title, text, frame, contents)
 
-        if not top_level:
-            self.body.append(MenuBtnGroup(frame,
-                choices_checkbox=False,
-                sel_all_btn=False,
-                apply_btn=False
-            ))
+
 
 
 class InfoBox(Box):
