@@ -15,16 +15,20 @@ class MenuButton(urwid.Button):
 class ScriptButton(MenuButton):
     def __init__(self, caption='',
                  script='',
-                 parameters=None):
+                 parameters=None,
+                 confirmation=False):
         super(ScriptButton, self).__init__(caption)
 
         self.script = script
         self.parameters = parameters
+        self.confirmation = confirmation
+
         if script:
             urwid.connect_signal(self, 'click', self.run_script, script)
 
     def run_script(self, button, script):
-        print(script)
+        # if self.confirmaton:
+            print(script)
 
 
 class CheckBoxButton(urwid.CheckBox):

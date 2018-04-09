@@ -42,9 +42,11 @@ class SubMenu(Box):
 
         self.actions.append(MenuButton('Back', frame.back))
 
-        if len(script)>0:
-            self.actions.append(ScriptButton('Apply...', script, self.parameters))
-
+        if script:
+            self.actions.append(ScriptButton('Apply...',
+                                             script=script,
+                                             parameters=self.parameters,
+                                             confirmation=True))
         body = contents[:]
 
         if not top_level and contents:
@@ -56,6 +58,22 @@ class SubMenu(Box):
         [i.set_state(True) for i in choices if not i.state]
 
 
-class InfoBox(Box):
-    def __init__(self, title, text, frame, contents=None):
-        super(InfoBox, self).__init__(title, text, frame, contents)
+class ActionBox(Box):
+    def __init__(self, title, text, frame, contents=None, script=''):
+        self.actions = []
+        self.parameters = []
+
+        self.actions.append(MenuButton('Back', frame.back))
+        if script:
+            self.actions.append(ScriptButton('Apply...',
+                                             script=script,
+                                             parameters=self.parameters,
+                                             confirmation=True))
+
+        body = []
+        if contents:
+            body.extend(contents)
+
+        body.append(MenuBtnGroup(self.actions))
+
+        super().__init__(title, text, frame, body)

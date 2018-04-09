@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import urwid
 from get_menu_items import menu_items, text_main_menu, exit_key
-from buttons import MenuButton, CheckBoxButton, ScriptButton
-from boxes import SubMenu
+from buttons import MenuButton, CheckBoxButton
+from boxes import SubMenu, ActionBox
 
 
 class MainFrame(urwid.WidgetPlaceholder):
@@ -25,7 +25,11 @@ class MainFrame(urwid.WidgetPlaceholder):
                 if checkbox:
                     return CheckBoxButton(obj["name"])
                 else:
-                    return MenuButton(obj["name"], self.item_chosen, obj["script"])
+                    return ActionBox(obj["name"],
+                                     obj["text"],
+                                     self,
+                                     script=obj.get("script", '')
+                                     ).button
             else:
                 checkbox = True if obj.get("checkbox", 'n') == 'y' else False
                 return SubMenu(obj["name"],
@@ -34,7 +38,7 @@ class MainFrame(urwid.WidgetPlaceholder):
                                top_level=False,
                                contents=self._load_menu(obj["items"], checkbox),
                                chkbox_group=checkbox,
-                               script=getattr(obj, "script", "")).button
+                               script=obj.get("script", "")).button
         for item in obj:
             lst.append(self._load_menu(item, checkbox))
         return lst

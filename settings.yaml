@@ -41,7 +41,7 @@ menu_items:
 
 - name: Update Provisioning
   script:
-  text:
+  text: "You are about to run update provisioning tool."
   items:
 
 - name: Troubleshooting
