@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+"""Main frame."""
+
 import urwid
 
-from get_menu_items import menu_items, text_main_menu, exit_key
+from get_menu_items import MENU_ITEMS, TEXT_MAIN_MENU, EXIT_KEY
 from buttons import MenuButton, CheckBoxButton
 from boxes import SubMenu, ActionBox
 
@@ -13,10 +15,10 @@ class MainFrame(urwid.WidgetPlaceholder):
         self.box_level = 0
         self.open_box(
             SubMenu('Main menu',
-                    text_main_menu,
+                    TEXT_MAIN_MENU,
                     self,
                     top_level=True,
-                    contents=self._load_menu(menu_items)
+                    contents=self._load_menu(MENU_ITEMS)
                     ))
 
     def _load_menu(self, obj, checkbox=False):
@@ -46,16 +48,16 @@ class MainFrame(urwid.WidgetPlaceholder):
 
     def open_box(self, box):
         self.original_widget = urwid.Overlay(urwid.LineBox(box),
-            self.original_widget,
-                 align='center',
-                 width=('relative', 20),
-                 valign='middle',
-                 height=('relative', 20),
-                 min_width=60, min_height=20)
+                                             self.original_widget,
+                                             align='center',
+                                             width=('relative', 20),
+                                             valign='middle',
+                                             height=('relative', 20),
+                                             min_width=60, min_height=20)
         self.box_level += 1
 
     def keypress(self, size, key):
-        if key == exit_key:
+        if key == EXIT_KEY:
             self.exit_confirmation()
 
         return super().keypress(size, key)

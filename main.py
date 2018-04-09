@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
+"""Main module."""
+
 import urwid
 from frame import MainFrame
 
 
-palette = [
+PALETTE = [
     ('reversed', 'standout', ''),
     ('bg', 'bold', 'dark blue'),
     ('bg_back', 'bold', 'black'), ]
 
 
-top = MainFrame()
+TOP = MainFrame()
 
-urwid.MainLoop(top, palette=palette).run()
-
+urwid.MainLoop(TOP, palette=PALETTE).run()
