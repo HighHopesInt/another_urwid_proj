@@ -105,7 +105,9 @@ class SubMenu(Box):
     def clear_edited(self):
         """ Clear editable fields. """
         if self.checkbox_group:
-            [i.set_state(False) for i in self.elements if i.state]
+            for i in self.elements:
+                if i.state:
+                    i.set_state(False)
 
 
 class ActionBox(Box):
