@@ -8,6 +8,8 @@ from frame import MainFrame
 
 
 def main():
+    """Function of run of MainLoop."""
+
     palette = [
         ('body', 'bold', 'dark cyan', 'standout'),
         ('foot', 'light gray', 'black'),

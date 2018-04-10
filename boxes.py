@@ -41,7 +41,7 @@ class SubMenu(Box):
 
         self.actions = []
         self.parameters = []
-        self.n = 0
+        self.count_click_select_all = 0
 
         if checkbox_group:
             self.actions.append(
@@ -64,11 +64,11 @@ class SubMenu(Box):
 
     def select_all(self, button, choices):
         for i in choices:
-            if self.n % 2 == 0:
+            if self.count_click_select_all % 2 == 0:
                 i.set_state(True)
             else:
                 i.set_state(False)
-        self.n += 1
+        self.count_click_select_all += 1
 
 
 class ActionBox(Box):
