@@ -3,6 +3,10 @@
 
 import urwid
 
+import subprocess
+
+from get_menu_items import PATH_TO_SCRIPTS, RESERVE_SCRIPT
+
 
 class MenuButton(urwid.Button):
     def __init__(self, caption='', callback=None, param=None):
@@ -29,8 +33,15 @@ class ScriptButton(MenuButton):
             urwid.connect_signal(self, 'click', self.run_script, script)
 
     def run_script(self, button, script):
-        # if self.confirmaton:
-        print(script)
+        scr = ""
+        try:
+            open(PATH_TO_SCRIPTS + script)
+            scr = PATH_TO_SCRIPTS + script
+        except FileNotFoundError:
+            scr = RESERVE_SCRIPT
+        finally:
+            running = subprocess.Popen([scr], stdout=subprocess.PIPE)
+            [print(line) for line in iter(running.stdout.readline, b'')]
 
 
 class CheckBoxButton(urwid.CheckBox):
