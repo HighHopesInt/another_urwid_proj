@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Buttons."""
+
 import urwid
 
 
@@ -10,7 +12,7 @@ class MenuButton(urwid.Button):
 
         # TODO: use curses to hide cursor
         self._w = urwid.AttrMap(urwid.SelectableIcon([
-            u'  \N{BULLET} ', caption
+            '  \N{BULLET} ', caption
         ], 100), None, 'reversed')
 
 

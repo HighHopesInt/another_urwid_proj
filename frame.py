@@ -3,19 +3,20 @@
 
 import urwid
 
-from get_menu_items import MENU_ITEMS, TEXT_MAIN_MENU, EXIT_KEY
-from buttons import MenuButton, CheckBoxButton
 from boxes import SubMenu, ActionBox
+from buttons import MenuButton, CheckBoxButton
+from get_menu_items import MENU_ITEMS, TEXT_MAIN_SCREEN, EXIT_KEY, \
+    TITLE_MAIN_SCREEN
 
 
 class MainFrame(urwid.WidgetPlaceholder):
     # TODO: add the exit_key param
     def __init__(self):
-        super().__init__(urwid.SolidFill(u'\N{MEDIUM SHADE}'))
+        super().__init__(urwid.SolidFill('/'))
 
         self.box_level = 0
 
-        sub_menu = SubMenu('Main menu', TEXT_MAIN_MENU, self,
+        sub_menu = SubMenu(TITLE_MAIN_SCREEN, TEXT_MAIN_SCREEN, self,
                            top_level=True,
                            contents=self._load_menu(MENU_ITEMS))
         self.open_box(sub_menu)
@@ -25,24 +26,27 @@ class MainFrame(urwid.WidgetPlaceholder):
     #
 
     def _load_menu(self, obj, checkbox=False):
-        lst = []  # TODO: come up with more suitable name
+        structure = []
         if isinstance(obj, dict):
+            name = obj['name']
+            text = obj['text']
+            items = obj['items']
+            script = obj.get('script', '')
             if obj["items"] is None:
                 if checkbox:
                     return CheckBoxButton(obj["name"])
                 else:
-                    return ActionBox(obj["name"], obj["text"], self,
-                                     script=obj.get("script", '')).button
+                    return ActionBox(name, text, self, script=script).button
             else:
                 checkbox = True if obj.get("checkbox", 'n') == 'y' else False
-                return SubMenu(obj["name"], obj["text"], self,
+                return SubMenu(name, text, self,
                                top_level=False,
-                               contents=self._load_menu(obj["items"], checkbox),
-                               chkbox_group=checkbox,
-                               script=obj.get("script", "")).button
+                               contents=self._load_menu(items, checkbox),
+                               checkbox_group=checkbox,
+                               script=script).button
         for item in obj:
-            lst.append(self._load_menu(item, checkbox))
-        return lst
+            structure.append(self._load_menu(item, checkbox))
+        return structure
 
     def _exit_confirmation(self):
         response = urwid.Text(['Do you really want to leave?'])
@@ -64,13 +68,13 @@ class MainFrame(urwid.WidgetPlaceholder):
     #
 
     def open_box(self, box):
-        self.original_widget = urwid.Overlay(urwid.LineBox(box),
-                                             self.original_widget,
-                                             align='center',
-                                             width=('relative', 20),
-                                             valign='middle',
-                                             height=('relative', 20),
-                                             min_width=60, min_height=20)
+        self.original_widget = urwid.Overlay(
+            urwid.AttrMap(urwid.LineBox(box), None),
+            self.original_widget,
+            align='center',
+            width=('relative', 95),
+            valign='middle',
+            height=('relative', 90))
         self.box_level += 1
 
     def keypress(self, size, key):

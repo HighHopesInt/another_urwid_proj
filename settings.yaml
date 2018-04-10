@@ -1,7 +1,9 @@
 # Here you can set the exit key from the program.
 exit_key: q
 
-text_main_menu: example text main menu
+# Here you can set title and text for main screen
+title_main_screen: MAIN MENU
+text_main_screen: example text
 
 # Here you can edit menu items and submenu items.
 menu_items:
