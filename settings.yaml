@@ -5,6 +5,10 @@ exit_key: q
 title_main_screen: MAIN MENU
 text_main_screen: example text
 
+# Here you must specify path to catalog with scripts.
+# All scripts must be executable.
+path_to_scripts: ./scripts/
+
 # Here you can edit menu items and submenu items.
 menu_items:
 - name: 'Test SSH Connection (check ssh to hosts)'
@@ -37,7 +41,7 @@ menu_items:
     items:
 
 - name: Startup Provisioning
-  script: 'sample script'
+  script: 'example.py'
   text: "You are about to run startup provisioning tool."
   items:
 
