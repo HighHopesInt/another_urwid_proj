@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Main module."""
 
 import urwid
 
@@ -8,7 +7,6 @@ from frame import MainFrame
 
 
 def main():
-    """Initialize the main frame and run main loop."""
 
     palette = [
         ('body', 'bold', 'dark cyan', 'standout'),
