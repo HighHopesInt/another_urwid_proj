@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+"""Boxes."""
+
 import urwid
+
 from buttons import MenuButton, ScriptButton
 
 
@@ -14,7 +17,7 @@ class Box(urwid.WidgetWrap):
         self.body = [urwid.Text(title), urwid.Divider()]
 
         if text:
-            self.body.append(urwid.Text(text))
+            self.body.extend([urwid.Text(text), urwid.Divider()])
 
         if contents:
             self.body.extend(contents)
@@ -33,15 +36,17 @@ class SubMenu(Box):
     def __init__(self, title, text, frame,
                  top_level=False,
                  contents=None,
-                 chkbox_group=False,  # TODO: do not use shorts
+                 checkbox_group=False,
                  script=''):
 
         self.actions = []
         self.parameters = []
         self.n = 0
 
-        if chkbox_group:
-            self.actions.append(MenuButton('Select all...', self.select_all, contents))
+        if checkbox_group:
+            self.actions.append(
+                MenuButton('Select all...', self.select_all, contents)
+            )
 
         self.actions.append(MenuButton('Back', frame.back))
 
@@ -57,9 +62,12 @@ class SubMenu(Box):
 
         super().__init__(title, text, frame, body)
 
-    # TODO: finish the method
     def select_all(self, button, choices):
-        [i.set_state(True) if self.n % 2 == 0 else i.set_state(False) for i in choices]
+        for i in choices:
+            if self.n % 2 == 0:
+                i.set_state(True)
+            else:
+                i.set_state(False)
         self.n += 1
 
 

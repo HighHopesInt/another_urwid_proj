@@ -2,17 +2,34 @@
 """Main module."""
 
 import urwid
+
+from get_menu_items import EXIT_KEY
 from frame import MainFrame
 
-# TODO: wrap everything into the main function
+
+def main():
+    palette = [
+        ('body', 'bold', 'dark cyan', 'standout'),
+        ('foot', 'light gray', 'black'),
+        ('key', 'light cyan', 'black', 'underline'),
+        ('title', 'white', 'black',),
+        ('reversed', 'standout', ''),
+    ]
+
+    splitter = ' | '
+
+    footer_text = [
+        ('title', "Provisioning system"), splitter,
+        ('key', "UP"), ", ",
+        ('key', "DOWN"), " basic navigation", splitter,
+        ('key', EXIT_KEY), " exits",
+    ]
+
+    footer = urwid.AttrMap(urwid.Text(footer_text), 'foot')
+    top = urwid.Frame(urwid.AttrWrap(MainFrame(), 'body'), footer=footer)
+
+    urwid.MainLoop(top, palette=palette).run()
 
 
-PALETTE = [
-    ('reversed', 'standout', ''),
-    ('bg', 'bold', 'dark blue'),
-    ('bg_back', 'bold', 'black'), ]
-
-
-TOP = MainFrame()
-
-urwid.MainLoop(TOP, palette=PALETTE).run()
+if __name__ == "__main__":
+    main()

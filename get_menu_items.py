@@ -3,7 +3,8 @@
 
 import yaml
 
-MENU = {"menu_items": [], "exit_key": 'q', "text_main_menu": ""}
+MENU = {"menu_items": [], "exit_key": 'q', "text_main_screen": "",
+        "title_main_screen": ""}
 
 with open("settings.yaml", 'r') as stream:
     try:
@@ -13,4 +14,5 @@ with open("settings.yaml", 'r') as stream:
 
 MENU_ITEMS = MENU["menu_items"]
 EXIT_KEY = MENU["exit_key"]
-TEXT_MAIN_MENU = MENU["text_main_menu"]
+TITLE_MAIN_SCREEN = MENU["title_main_screen"]
+TEXT_MAIN_SCREEN = MENU["text_main_screen"]
