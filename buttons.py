@@ -30,7 +30,7 @@ class ScriptButton(MenuButton):
 
     def run_script(self, button, script):
         # if self.confirmaton:
-            print(script)
+        print(script)
 
 
 class CheckBoxButton(urwid.CheckBox):

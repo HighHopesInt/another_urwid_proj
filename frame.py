@@ -80,7 +80,6 @@ class MainFrame(urwid.WidgetPlaceholder):
     def keypress(self, size, key):
         if key == EXIT_KEY:
             self._exit_confirmation()
-
         return super().keypress(size, key)
 
     def item_chosen(self, button, param):
