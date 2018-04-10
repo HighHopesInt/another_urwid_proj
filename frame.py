@@ -68,6 +68,9 @@ class MainFrame(urwid.WidgetPlaceholder):
     #
 
     def open_box(self, box):
+        if getattr(box, 'clear_edited', None):
+            box.clear_edited()
+
         self.original_widget = urwid.Overlay(
             urwid.AttrMap(urwid.LineBox(box), None),
             self.original_widget,
@@ -75,15 +78,13 @@ class MainFrame(urwid.WidgetPlaceholder):
             width=('relative', 95),
             valign='middle',
             height=('relative', 90))
+
         self.box_level += 1
 
     def keypress(self, size, key):
         if key == EXIT_KEY:
             self._exit_confirmation()
         return super().keypress(size, key)
-
-    def item_chosen(self, button, param):
-        print('item chosen')
 
     def back(self, button):
         if self.box_level > 1:
