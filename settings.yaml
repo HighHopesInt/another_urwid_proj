@@ -12,7 +12,7 @@ path_to_scripts: ./scripts/
 # Here you can edit menu items and submenu items.
 menu_items:
 - name: 'Test SSH Connection (check ssh to hosts)'
-  script: 'echo'
+  script: 'example_checkboxes.py'
   text: 'sample text'
   checkbox: y
   items:

@@ -63,10 +63,10 @@ class SubMenu(Box):
 
         if self.checkbox_group:
             for item in self.elements:
-                urwid.connect_signal(item, 'change', self.checkbox_changed)
+                urwid.connect_signal(item, 'postchange', self.checkbox_changed)
 
             self.actions.append(
-                MenuButton('Select all...', self.select_all, self.elements)
+                MenuButton('Select all...', self.select_all)
             )
 
         self.actions.append(MenuButton('Back', frame.back))
@@ -83,9 +83,9 @@ class SubMenu(Box):
 
         super().__init__(title, text, frame, body)
 
-    def select_all(self, button, choices):
+    def select_all(self, button):
         """ Select all checkboxes. """
-        for i in choices:
+        for i in self.elements:
             if self.count_click_select_all % 2 == 0:
                 i.set_state(True)
             else:
@@ -108,6 +108,7 @@ class SubMenu(Box):
             for i in self.elements:
                 if i.state:
                     i.set_state(False)
+            self.count_click_select_all = 0
 
 
 class ActionBox(Box):

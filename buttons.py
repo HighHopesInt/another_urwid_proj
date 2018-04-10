@@ -30,17 +30,19 @@ class ScriptButton(MenuButton):
         self.confirmation = confirmation
 
         if script:
-            urwid.connect_signal(self, 'click', self.run_script, script)
+            urwid.connect_signal(self, 'click', self.run_script)
 
-    def run_script(self, button, script):
+    def run_script(self, button):
         scr = ""
         try:
-            open(PATH_TO_SCRIPTS + script)
-            scr = PATH_TO_SCRIPTS + script
+            open(PATH_TO_SCRIPTS + self.script)
+            # self.parameters = ['a', 'b', 'c']
+            scr = [PATH_TO_SCRIPTS + self.script]
+            scr.extend(self.parameters)
         except FileNotFoundError:
             scr = RESERVE_SCRIPT
         finally:
-            running = subprocess.Popen([scr], stdout=subprocess.PIPE)
+            running = subprocess.Popen(scr, stdout=subprocess.PIPE)
             [print(line) for line in iter(running.stdout.readline, b'')]
 
 
