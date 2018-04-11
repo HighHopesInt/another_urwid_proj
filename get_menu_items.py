@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Importing settings from file."""
+"""Import settings from file. """
 
 import yaml
 
