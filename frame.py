@@ -118,8 +118,8 @@ class MainFrame(urwid.WidgetPlaceholder):
         """
         Show the output of script.
         """
-        output = urwid.Text(text)
         back_to_menu = MenuButton('Back', self.back)
-        widget_list = [output, urwid.Divider(), back_to_menu]
-        box = urwid.Filler(urwid.Pile(widget_list))
+        scrolling = urwid.Pile([urwid.Text(text)])
+        output = urwid.ListBox(urwid.SimpleListWalker([scrolling]))
+        box = urwid.Pile([output, ('pack', back_to_menu)])
         self.open_box(box)
