@@ -9,20 +9,26 @@ from buttons import MenuButton, ScriptButton
 class MenuBtnGroup(urwid.WidgetWrap):
     """Menu button group."""
     def __init__(self, button_group):
-        super().__init__(urwid.GridFlow(button_group, 20, 1, 1, 'center'))
+        attr_button_group = []
+        for item in button_group:
+            attr_button_group.append(urwid.AttrMap(item, 'button'))
+
+        super().__init__(urwid.GridFlow(attr_button_group, 20, 1, 1, 'center'))
 
 
 class Box(urwid.WidgetWrap):
     """Base box class."""
     # TODO: rework params
     def __init__(self, title, text, frame, contents=None):
-        self.body = [urwid.Text(title), urwid.Divider()]
+        self.body = [urwid.Text(('title', title)), urwid.Divider()]
 
         if text:
             self.body.extend([urwid.Text(text), urwid.Divider()])
 
         if contents:
             self.body.extend(contents)
+
+        self.body.append(urwid.Divider())
 
         self.button = MenuButton(title, self.open, frame)
         self.frame = frame

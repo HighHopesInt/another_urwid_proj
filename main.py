@@ -9,17 +9,22 @@ from frame import MainFrame
 def main():
 
     palette = [
-        ('body', 'bold', 'dark cyan', 'standout'),
+        ('body', 'default', 'dark cyan', 'standout'),
         ('foot', 'light gray', 'black'),
-        ('key', 'light cyan', 'black', 'underline'),
-        ('title', 'white', 'black',),
+
+        ('key', 'light cyan, bold', 'black', 'underline'),
+
+        ('title', 'white, bold', 'dark cyan',),
+        ('button', 'white, bold', 'dark cyan'),
+
+        ('default_bold', 'bold', '',),
         ('reversed', 'standout', ''),
     ]
 
     splitter = ' | '
 
     footer_text = [
-        ('title', "Provisioning system"), splitter,
+        ('default_bold', "Provisioning system"), splitter,
         ('key', "UP"), ", ",
         ('key', "DOWN"), " basic navigation", splitter,
         ('key', EXIT_KEY), " exits",
