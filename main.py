@@ -17,7 +17,7 @@ def main():
         ('title', 'white, bold', 'dark cyan',),
         ('button', 'white, bold', 'dark cyan'),
 
-        ('default_bold', 'bold', '',),
+        ('default_bold', 'bold', 'black',),
         ('reversed', 'standout', ''),
     ]
 
