@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Boxes."""
+"""Boxes. """
 
 import urwid
 
@@ -7,7 +7,7 @@ from buttons import MenuButton, ScriptButton
 
 
 class MenuBtnGroup(urwid.WidgetWrap):
-    """Menu button group."""
+    """Menu button group. """
     def __init__(self, button_group):
         attr_button_group = []
         for item in button_group:
@@ -17,7 +17,7 @@ class MenuBtnGroup(urwid.WidgetWrap):
 
 
 class Box(urwid.WidgetWrap):
-    """Base box class."""
+    """Base box class. """
     # TODO: rework params
     def __init__(self, title, text, frame, contents=None):
         self.body = [urwid.Text(('title', title)), urwid.Divider()]
@@ -54,7 +54,7 @@ class Box(urwid.WidgetWrap):
 
 
 class SubMenu(Box):
-    """Represents submenu box."""
+    """Submenu box. """
     def __init__(self, title, text, frame,
                  top_level=False,
                  contents=None,
@@ -91,7 +91,7 @@ class SubMenu(Box):
         super().__init__(title, text, frame, body)
 
     def select_all(self, button):
-        """ Select all checkboxes. """
+        """Selects all checkboxes. """
         for i in self.elements:
             if self.count_click_select_all % 2 == 0:
                 i.set_state(True)
@@ -100,7 +100,7 @@ class SubMenu(Box):
         self.count_click_select_all += 1
 
     def checkbox_changed(self, button, data=None):
-        """ Checkbox change event. """
+        """Checkbox change event. """
         if button.state:
             self.parameters.append(button.label)
         else:
@@ -110,7 +110,7 @@ class SubMenu(Box):
                 pass
 
     def clear_edited(self):
-        """ Clear editable fields. """
+        """Clears editable fields. """
         if self.checkbox_group:
             for i in self.elements:
                 if i.state:
@@ -119,7 +119,7 @@ class SubMenu(Box):
 
 
 class ActionBox(Box):
-    """ Represents single action box with no child boxes. """
+    """ Single action box with no child boxes. """
     def __init__(self, title, text, frame, contents=None, script=''):
         self.actions = []
         self.parameters = []
@@ -141,5 +141,5 @@ class ActionBox(Box):
         super().__init__(title, text, frame, body)
 
     def clear_edited(self):
-        """Do nothing, as this box does not have editable elements yet."""
+        """Does nothing, as this box does not have editable elements yet. """
         pass
