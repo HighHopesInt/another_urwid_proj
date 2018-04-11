@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Buttons."""
 
-import urwid
-
 import subprocess
+
+import urwid
 
 from get_menu_items import PATH_TO_SCRIPTS, RESERVE_SCRIPT
 
@@ -31,7 +31,7 @@ class ScriptButton(MenuButton):
     """
     Script running button.
     """
-    def __init__(self, caption='', script='', parameters=None,
+    def __init__(self, caption='', script='', parameters=None, output=None,
                  confirmation=False):
         """
         :param caption: label (str)
@@ -44,6 +44,7 @@ class ScriptButton(MenuButton):
         self.script = script
         self.parameters = parameters
         self.confirmation = confirmation
+        self.output = output
 
         if script:
             urwid.connect_signal(self, 'click', self.run_script)
@@ -52,14 +53,15 @@ class ScriptButton(MenuButton):
         scr = ""
         try:
             open(PATH_TO_SCRIPTS + self.script)
-            # self.parameters = ['a', 'b', 'c']
             scr = [PATH_TO_SCRIPTS + self.script]
             scr.extend(self.parameters)
         except FileNotFoundError:
             scr = RESERVE_SCRIPT
         finally:
             running = subprocess.Popen(scr, stdout=subprocess.PIPE)
-            [print(line) for line in iter(running.stdout.readline, b'')]
+            self.output.output_script(
+                [line for line in iter(running.stdout.readline, b'')]
+            )
 
 
 class CheckBoxButton(urwid.CheckBox):
