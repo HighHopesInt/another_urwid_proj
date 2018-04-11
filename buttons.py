@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Buttons."""
+"""Buttons. """
 
 import subprocess
 
@@ -50,6 +50,7 @@ class ScriptButton(MenuButton):
             urwid.connect_signal(self, 'click', self.run_script)
 
     def run_script(self, button):
+        """Runs script. """
         scr = ""
         try:
             open(PATH_TO_SCRIPTS + self.script)
