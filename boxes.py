@@ -81,6 +81,7 @@ class SubMenu(Box):
             self.actions.append(ScriptButton('Apply...',
                                              script=script,
                                              parameters=self.parameters,
+                                             output=frame,
                                              confirmation=True))
         body = contents[:]
 
@@ -128,6 +129,7 @@ class ActionBox(Box):
             self.actions.append(ScriptButton('Apply...',
                                              script=script,
                                              parameters=self.parameters,
+                                             output=frame,
                                              confirmation=True))
 
         body = []

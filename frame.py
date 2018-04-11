@@ -46,7 +46,7 @@ class MainFrame(urwid.WidgetPlaceholder):
             script = obj.get('script', '')
             if obj["items"] is None:
                 if checkbox:
-                    return CheckBoxButton(obj["name"])
+                    return CheckBoxButton(name)
                 else:
                     return ActionBox(name, text, self, script=script).button
             else:
@@ -113,3 +113,13 @@ class MainFrame(urwid.WidgetPlaceholder):
         if self.box_level > 1:
             self.original_widget = self.original_widget[0]
             self.box_level -= 1
+
+    def output_script(self, text):
+        """
+        Show the output of script.
+        """
+        output = urwid.Text(text)
+        back_to_menu = MenuButton('Back', self.back)
+        widget_list = [output, urwid.Divider(), back_to_menu]
+        box = urwid.Filler(urwid.Pile(widget_list))
+        self.open_box(box)
