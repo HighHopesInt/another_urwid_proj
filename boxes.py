@@ -42,8 +42,8 @@ class Box(urwid.WidgetWrap):
             self.body.extend(contents)
 
         _body = urwid.ListBox(
-                    urwid.SimpleFocusListWalker(self.body)
-                )
+            urwid.SimpleFocusListWalker(self.body)
+        )
 
         action_box = urwid.Pile([])
 
@@ -66,10 +66,10 @@ class Box(urwid.WidgetWrap):
             ('pack', _footer)
         ]))
 
-    def open(self, button, frame):
+    def open(self, _button, frame):
         """
         Calls parent frame method of displaying the box.
-        :param button:
+        :param _button:
         :param frame: parent frame
         :return: parent frame method call
         """
@@ -89,15 +89,13 @@ class SubMenu(Box):
                  top_level=False,
                  contents=None,
                  checkbox_group=False,
-                 script='', sub=False):
+                 script=''):
 
         self.actions = []
         self.parameters = []
         self.count_click_select_all = 0
         self.checkbox_group = checkbox_group
         self.elements = contents[:]
-
-        item_name = title + " ..." if sub else title
 
         if self.checkbox_group:
             for item in self.elements:
@@ -120,7 +118,9 @@ class SubMenu(Box):
 
         super().__init__(title, text, frame, body, self.actions)
 
-    def select_all(self, button):
+        self.button.change_label(self.button.label + "...")
+
+    def select_all(self, _button):
         """Selects all checkboxes. """
         for i in self.elements:
             if self.count_click_select_all % 2 == 0:
@@ -129,7 +129,7 @@ class SubMenu(Box):
                 i.set_state(False)
         self.count_click_select_all += 1
 
-    def checkbox_changed(self, button, data=None):
+    def checkbox_changed(self, button, _data=None):
         """Checkbox change event. """
         if button.state:
             self.parameters.append(button.label)
@@ -149,11 +149,10 @@ class SubMenu(Box):
 
 
 class ActionBox(Box):
-    """ Single action box with no child boxes. """
+    """Single action box with no child boxes. """
     def __init__(self, title, text, frame, contents=None, script=''):
         self.actions = []
         self.parameters = []
-        item_name = title
 
         self.actions.append(MenuButton('Back', frame.back))
         if script:
@@ -167,9 +166,7 @@ class ActionBox(Box):
         if contents:
             body.extend(contents)
 
-        body.append(MenuBtnGroup(self.actions))
-
-        super().__init__(title, text, frame, body, item_name)
+        super().__init__(title, text, frame, body, self.actions)
 
     def clear_edited(self):
         """Does nothing, as this box does not have editable elements yet. """
