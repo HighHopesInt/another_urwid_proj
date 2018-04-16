@@ -19,7 +19,7 @@ class MenuBtnGroup(urwid.WidgetWrap):
 class Box(urwid.WidgetWrap):
     """Base box class. """
     # TODO: rework params
-    def __init__(self, title, text, frame, contents=None):
+    def __init__(self, title, text, frame, contents=None, sub=False):
         self.body = [urwid.Text(('title', title)), urwid.Divider()]
 
         if text:
@@ -30,6 +30,7 @@ class Box(urwid.WidgetWrap):
 
         self.body.append(urwid.Divider())
 
+        title = title + " ..." if sub else title
         self.button = MenuButton(title, self.open, frame)
         self.frame = frame
 
@@ -59,7 +60,7 @@ class SubMenu(Box):
                  top_level=False,
                  contents=None,
                  checkbox_group=False,
-                 script=''):
+                 script='', sub=False):
 
         self.actions = []
         self.parameters = []
@@ -88,7 +89,7 @@ class SubMenu(Box):
         if not top_level and contents:
             body.append(MenuBtnGroup(self.actions))
 
-        super().__init__(title, text, frame, body)
+        super().__init__(title, text, frame, body, sub)
 
     def select_all(self, button):
         """Selects all checkboxes. """
