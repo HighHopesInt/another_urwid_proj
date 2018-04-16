@@ -102,7 +102,7 @@ class SubMenu(Box):
                 urwid.connect_signal(item, 'postchange', self.checkbox_changed)
 
             self.actions.append(
-                MenuButton('Select all...', self.select_all)
+                MenuButton('Select all', self.select_all)
             )
 
         if not top_level:
