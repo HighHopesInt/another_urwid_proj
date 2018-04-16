@@ -19,7 +19,7 @@ class MenuBtnGroup(urwid.WidgetWrap):
 class Box(urwid.WidgetWrap):
     """Base box class. """
     # TODO: rework params
-    def __init__(self, title, text, frame, contents=None, sub=False):
+    def __init__(self, title, text, frame, contents=None, item_name=None):
         self.body = [urwid.Text(('title', title)), urwid.Divider()]
 
         if text:
@@ -30,8 +30,7 @@ class Box(urwid.WidgetWrap):
 
         self.body.append(urwid.Divider())
 
-        title = title + " ..." if sub else title
-        self.button = MenuButton(title, self.open, frame)
+        self.button = MenuButton(item_name, self.open, frame)
         self.frame = frame
 
         super().__init__(
@@ -68,6 +67,8 @@ class SubMenu(Box):
         self.checkbox_group = checkbox_group
         self.elements = contents[:]
 
+        item_name = title + " ..." if sub else title
+
         if self.checkbox_group:
             for item in self.elements:
                 urwid.connect_signal(item, 'postchange', self.checkbox_changed)
@@ -89,7 +90,7 @@ class SubMenu(Box):
         if not top_level and contents:
             body.append(MenuBtnGroup(self.actions))
 
-        super().__init__(title, text, frame, body, sub)
+        super().__init__(title, text, frame, body, item_name)
 
     def select_all(self, button):
         """Selects all checkboxes. """
@@ -124,6 +125,7 @@ class ActionBox(Box):
     def __init__(self, title, text, frame, contents=None, script=''):
         self.actions = []
         self.parameters = []
+        item_name = title
 
         self.actions.append(MenuButton('Back', frame.back))
         if script:
@@ -139,7 +141,7 @@ class ActionBox(Box):
 
         body.append(MenuBtnGroup(self.actions))
 
-        super().__init__(title, text, frame, body)
+        super().__init__(title, text, frame, body, item_name)
 
     def clear_edited(self):
         """Does nothing, as this box does not have editable elements yet. """
