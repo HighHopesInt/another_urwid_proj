@@ -26,6 +26,106 @@ menu_items:
     text: 'localhost'
     items:
 
+  - name: 20.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 30.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 40.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 50.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 60.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 70.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 80.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 90.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 100.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
+  - name: 110.0.0.0
+    script:
+    text: 'default host'
+    items:
+
+  - name: 127.0.0.0
+    script:
+    text: 'localhost'
+    items:
+
 - name: Backup (backup all devices in /tmp/)
   script:
   text: 'sample text 2'
