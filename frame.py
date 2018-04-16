@@ -54,8 +54,7 @@ class MainFrame(urwid.WidgetPlaceholder):
                                top_level=False,
                                contents=self._load_menu(items, checkbox),
                                checkbox_group=checkbox,
-                               script=script,
-                               sub=True).button
+                               script=script).button
         for item in obj:
             structure.append(self._load_menu(item, checkbox))
         return structure

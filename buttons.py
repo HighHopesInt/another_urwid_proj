@@ -26,6 +26,10 @@ class MenuButton(urwid.Button):
             urwid.SelectableIcon(
                 ['[ ', caption, ' ]'], 100), None, 'reversed')
 
+    def change_label(self, label):
+        super(MenuButton, self).set_label(label)
+        self._w.original_widget.set_text("[ " + label + " ]")
+
 
 class ScriptButton(MenuButton):
     """
