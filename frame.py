@@ -7,8 +7,7 @@ import urwid
 
 from boxes import SubMenu, ActionBox
 from buttons import MenuButton, CheckBoxButton
-from get_menu_items import MENU_ITEMS, TEXT_MAIN_SCREEN, EXIT_KEY, \
-    TITLE_MAIN_SCREEN
+from get_menu_items import MENU_ITEMS, TEXT_MAIN_SCREEN, TITLE_MAIN_SCREEN
 
 
 class MainFrame(urwid.WidgetPlaceholder):
@@ -17,11 +16,11 @@ class MainFrame(urwid.WidgetPlaceholder):
     Loads the menu tree from the configuration file and walk over this tree.
     Handles general key events.
     """
-    # TODO: add the exit_key param
-    def __init__(self):
+    def __init__(self, exit_key):
         super().__init__(urwid.SolidFill('/'))
 
         self.box_level = 0
+        self.exit_key = exit_key
 
         sub_menu = SubMenu(TITLE_MAIN_SCREEN, TEXT_MAIN_SCREEN, self,
                            top_level=True,
@@ -104,7 +103,7 @@ class MainFrame(urwid.WidgetPlaceholder):
 
     def keypress(self, size, key):
         """ Handles general keypress. """
-        if key == EXIT_KEY:
+        if key == self.exit_key:
             self._exit_confirmation()
         return super().keypress(size, key)
 

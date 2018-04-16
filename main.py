@@ -31,7 +31,9 @@ def main():
     ]
 
     footer = urwid.AttrMap(urwid.Text(footer_text), 'foot')
-    top = urwid.Frame(urwid.AttrWrap(MainFrame(), 'body'), footer=footer)
+    top = urwid.Frame(
+        urwid.AttrWrap(MainFrame(EXIT_KEY), 'body'), footer=footer
+    )
 
     urwid.MainLoop(top, palette=palette).run()
 
