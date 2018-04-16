@@ -19,22 +19,52 @@ class MenuBtnGroup(urwid.WidgetWrap):
 class Box(urwid.WidgetWrap):
     """Base box class. """
     # TODO: rework params
-    def __init__(self, title, text, frame, contents=None, item_name=None):
-        self.body = [urwid.Text(('title', title)), urwid.Divider()]
+    def __init__(self, title, text, frame, contents=None, actions=None):
+
+        _header = urwid.Pile(
+            [
+                ('pack', urwid.Text(('title', title))),
+                ('pack', urwid.Divider())
+            ]
+        )
 
         if text:
-            self.body.extend([urwid.Text(text), urwid.Divider()])
+            _header.contents.extend(
+                [
+                    (urwid.Text(text), _header.options()),
+                    (urwid.Divider('-'), _header.options())
+                ]
+            )
+
+        self.body = []
 
         if contents:
             self.body.extend(contents)
 
-        self.body.append(urwid.Divider())
+        _body = urwid.ListBox(
+                    urwid.SimpleFocusListWalker(self.body)
+                )
 
-        self.button = MenuButton(item_name, self.open, frame)
+        action_box = urwid.Pile([])
+
+        if actions:
+            action_box.contents.append((urwid.Divider('-'),
+                                        action_box.options()))
+            action_box.contents.append((MenuBtnGroup(self.actions),
+                                        action_box.options()))
+
+        _footer = action_box
+        if _footer.contents:
+            _footer.focus_position = 1  # the first one is Divider
+
+        self.button = MenuButton(title, self.open, frame)
         self.frame = frame
 
-        super().__init__(
-            urwid.ListBox(urwid.SimpleFocusListWalker(self.body)))
+        super().__init__(urwid.Pile([
+            ('pack', _header),
+            _body,
+            ('pack', _footer)
+        ]))
 
     def open(self, button, frame):
         """
@@ -77,7 +107,8 @@ class SubMenu(Box):
                 MenuButton('Select all...', self.select_all)
             )
 
-        self.actions.append(MenuButton('Back', frame.back))
+        if not top_level:
+            self.actions.append(MenuButton('Back', frame.back))
 
         if script:
             self.actions.append(ScriptButton('Apply...',
@@ -87,10 +118,7 @@ class SubMenu(Box):
                                              confirmation=True))
         body = contents[:]
 
-        if not top_level and contents:
-            body.append(MenuBtnGroup(self.actions))
-
-        super().__init__(title, text, frame, body, item_name)
+        super().__init__(title, text, frame, body, self.actions)
 
     def select_all(self, button):
         """Selects all checkboxes. """
